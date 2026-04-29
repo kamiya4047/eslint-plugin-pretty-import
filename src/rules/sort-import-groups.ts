@@ -65,7 +65,7 @@ export const sortImportGroups: Rule.RuleModule = {
 
     return {
       ImportDeclaration(node) {
-        imports.push(node as ImportDeclaration);
+        imports.push(node);
       },
 
       'Program:exit'() {
@@ -207,11 +207,11 @@ export const sortImportGroups: Rule.RuleModule = {
             if (prevPriority !== currentPriority) {
               if (lineGap !== 2) {
                 context.report({
-                  node: currentImport.node as Rule.Node,
+                  node: currentImport.node,
                   messageId: lineGap < 2 ? 'missingBlankLine' : 'unexpectedBlankLine',
                   fix(fixer) {
-                    const prevToken = sourceCode.getLastToken(prevImport.node as Rule.Node);
-                    const currentToken = sourceCode.getFirstToken(currentImport.node as Rule.Node);
+                    const prevToken = sourceCode.getLastToken(prevImport.node);
+                    const currentToken = sourceCode.getFirstToken(currentImport.node);
 
                     if (prevToken && currentToken) {
                       return fixer.replaceTextRange([prevToken.range[1], currentToken.range[0]], '\n\n');
@@ -225,11 +225,11 @@ export const sortImportGroups: Rule.RuleModule = {
             else {
               if (lineGap !== 1) {
                 context.report({
-                  node: currentImport.node as Rule.Node,
+                  node: currentImport.node,
                   messageId: 'unexpectedBlankLine',
                   fix(fixer) {
-                    const prevToken = sourceCode.getLastToken(prevImport.node as Rule.Node);
-                    const currentToken = sourceCode.getFirstToken(currentImport.node as Rule.Node);
+                    const prevToken = sourceCode.getLastToken(prevImport.node);
+                    const currentToken = sourceCode.getFirstToken(currentImport.node);
 
                     if (prevToken && currentToken) {
                       return fixer.replaceTextRange([prevToken.range[1], currentToken.range[0]], '\n');

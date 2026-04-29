@@ -3,7 +3,7 @@ import { describe, expect } from 'bun:test';
 import { analyzeImportType, createSortKey, formatImportStatement, getImportGroupPriority, getModuleType, sortImportSpecifiers } from '../src/utils';
 import { ImportType, ModuleType } from '../src/types';
 
-import type { ImportDeclaration, ImportDefaultSpecifier, ImportNamespaceSpecifier, ImportSpecifier as ESTREEImportSpecifier, Literal } from 'estree';
+import type { ImportDeclaration, ImportDefaultSpecifier, ImportNamespaceSpecifier, ImportSpecifier as ESTREEImportSpecifier } from 'estree';
 
 import type { ImportInfo, ImportSpecifier } from '../src/types';
 
@@ -35,7 +35,7 @@ describe('analyzeImportType', () => {
   const sideEffectNode: ImportDeclaration = {
     type: 'ImportDeclaration',
     specifiers: [],
-    source: { type: 'Literal', value: './styles.css', raw: '\'./styles.css\'' } as Literal,
+    source: { type: 'Literal', value: './styles.css', raw: '\'./styles.css\'' },
     attributes: [],
   };
   expect(analyzeImportType(sideEffectNode)).toBe(ImportType.SideEffect);
@@ -44,7 +44,7 @@ describe('analyzeImportType', () => {
   const defaultNode: ImportDeclaration = {
     type: 'ImportDeclaration',
     specifiers: [{ type: 'ImportDefaultSpecifier' } as ImportDefaultSpecifier],
-    source: { type: 'Literal', value: 'react', raw: '\'react\'' } as Literal,
+    source: { type: 'Literal', value: 'react', raw: '\'react\'' },
     attributes: [],
   };
   expect(analyzeImportType(defaultNode)).toBe(ImportType.Default);
@@ -53,7 +53,7 @@ describe('analyzeImportType', () => {
   const namedNode: ImportDeclaration = {
     type: 'ImportDeclaration',
     specifiers: [{ type: 'ImportSpecifier' } as ESTREEImportSpecifier],
-    source: { type: 'Literal', value: 'react', raw: '\'react\'' } as Literal,
+    source: { type: 'Literal', value: 'react', raw: '\'react\'' },
     attributes: [],
   };
   expect(analyzeImportType(namedNode)).toBe(ImportType.Named);
@@ -62,7 +62,7 @@ describe('analyzeImportType', () => {
   const namespaceNode: ImportDeclaration = {
     type: 'ImportDeclaration',
     specifiers: [{ type: 'ImportNamespaceSpecifier' } as ImportNamespaceSpecifier],
-    source: { type: 'Literal', value: 'fs', raw: '\'fs\'' } as Literal,
+    source: { type: 'Literal', value: 'fs', raw: '\'fs\'' },
     attributes: [],
   };
   expect(analyzeImportType(namespaceNode)).toBe(ImportType.Namespace);
@@ -74,7 +74,7 @@ describe('analyzeImportType', () => {
       { type: 'ImportDefaultSpecifier' } as ImportDefaultSpecifier,
       { type: 'ImportSpecifier' } as ESTREEImportSpecifier,
     ],
-    source: { type: 'Literal', value: 'react', raw: '\'react\'' } as Literal,
+    source: { type: 'Literal', value: 'react', raw: '\'react\'' },
     attributes: [],
   };
   expect(analyzeImportType(mixedNode)).toBe(ImportType.Named);
@@ -86,7 +86,7 @@ describe('getImportGroupPriority', () => {
     node: {
       type: 'ImportDeclaration',
       specifiers: [],
-      source: { type: 'Literal', value: 'node:fs', raw: '\'node:fs\'' } as Literal,
+      source: { type: 'Literal', value: 'node:fs', raw: '\'node:fs\'' },
       attributes: [],
     },
     source: 'node:fs',
@@ -104,7 +104,7 @@ describe('getImportGroupPriority', () => {
     node: {
       type: 'ImportDeclaration',
       specifiers: [],
-      source: { type: 'Literal', value: 'react', raw: '\'react\'' } as Literal,
+      source: { type: 'Literal', value: 'react', raw: '\'react\'' },
       attributes: [],
     },
     source: 'react',
@@ -122,7 +122,7 @@ describe('getImportGroupPriority', () => {
     node: {
       type: 'ImportDeclaration',
       specifiers: [],
-      source: { type: 'Literal', value: './types', raw: '\'./types\'' } as Literal,
+      source: { type: 'Literal', value: './types', raw: '\'./types\'' },
       attributes: [],
     },
     source: './types',
@@ -140,7 +140,7 @@ describe('getImportGroupPriority', () => {
     node: {
       type: 'ImportDeclaration',
       specifiers: [],
-      source: { type: 'Literal', value: './styles.css', raw: '\'./styles.css\'' } as Literal,
+      source: { type: 'Literal', value: './styles.css', raw: '\'./styles.css\'' },
       attributes: [],
     },
     source: './styles.css',
@@ -172,9 +172,9 @@ describe('formatImportStatement', () => {
     node: {
       type: 'ImportDeclaration',
       specifiers: [],
-      source: { type: 'Literal', value: './styles.css', raw: '\'./styles.css\'' } as Literal,
+      source: { type: 'Literal', value: './styles.css', raw: '\'./styles.css\'' },
       attributes: [],
-    } as ImportDeclaration,
+    },
     source: './styles.css',
     specifiers: [],
     importType: ImportType.SideEffect,
@@ -190,9 +190,9 @@ describe('formatImportStatement', () => {
     node: {
       type: 'ImportDeclaration',
       specifiers: [],
-      source: { type: 'Literal', value: 'react', raw: '\'react\'' } as Literal,
+      source: { type: 'Literal', value: 'react', raw: '\'react\'' },
       attributes: [],
-    } as ImportDeclaration,
+    },
     source: 'react',
     specifiers: [{ name: 'default', alias: 'React', sortKey: createSortKey('React'), isType: false }],
     importType: ImportType.Default,
@@ -208,9 +208,9 @@ describe('formatImportStatement', () => {
     node: {
       type: 'ImportDeclaration',
       specifiers: [],
-      source: { type: 'Literal', value: 'react', raw: '\'react\'' } as Literal,
+      source: { type: 'Literal', value: 'react', raw: '\'react\'' },
       attributes: [],
-    } as ImportDeclaration,
+    },
     source: 'react',
     specifiers: [
       { name: 'useState', sortKey: createSortKey('useState'), isType: false },
@@ -229,9 +229,9 @@ describe('formatImportStatement', () => {
     node: {
       type: 'ImportDeclaration',
       specifiers: [],
-      source: { type: 'Literal', value: './types', raw: '\'./types\'' } as Literal,
+      source: { type: 'Literal', value: './types', raw: '\'./types\'' },
       attributes: [],
-    } as ImportDeclaration,
+    },
     source: './types',
     specifiers: [
       { name: 'User', sortKey: createSortKey('User'), isType: false },
@@ -250,9 +250,9 @@ describe('formatImportStatement', () => {
     node: {
       type: 'ImportDeclaration',
       specifiers: [],
-      source: { type: 'Literal', value: 'react', raw: '\'react\'' } as Literal,
+      source: { type: 'Literal', value: 'react', raw: '\'react\'' },
       attributes: [],
-    } as ImportDeclaration,
+    },
     source: 'react',
     specifiers: [
       { name: 'default', alias: 'React', sortKey: createSortKey('React'), isType: false },
@@ -272,9 +272,9 @@ describe('formatImportStatement', () => {
     node: {
       type: 'ImportDeclaration',
       specifiers: [],
-      source: { type: 'Literal', value: 'fs', raw: '\'fs\'' } as Literal,
+      source: { type: 'Literal', value: 'fs', raw: '\'fs\'' },
       attributes: [],
-    } as ImportDeclaration,
+    },
     source: 'fs',
     specifiers: [{ name: '*', alias: 'fs', sortKey: createSortKey('fs'), isType: false }],
     importType: ImportType.Namespace,

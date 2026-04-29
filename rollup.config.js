@@ -19,7 +19,8 @@ export default {
       tsconfig: './tsconfig.json',
       declaration: true,
       declarationDir: 'dist',
-      include: ['src/**/*']
+      outDir: 'dist',
+      include: ['src/**/*', '!src/test-utils.ts']
     })
   ]
 };

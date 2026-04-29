@@ -13,18 +13,21 @@ This directory contains comprehensive documentation for all rules provided by
   within import statements
 - [`separate-type-imports`](./rules/separate-type-imports.md) - Enforces
   separate `import type` declarations over inline type imports
+- [`single-line-import`](./rules/single-line-import.md) - Enforces import
+  statements on a single line
 
 ## Quick Reference
 
-| Rule | Description | Auto-fixable | Default Severity |
+| Rule | Description | Auto-fixable |
 |------|-------------|--------------|------------------|
-| [`sort-import-groups`](./rules/sort-import-groups.md) | Groups and sorts imports with CSS grouping | ✅ | `error` |
-| [`sort-import-names`](./rules/sort-import-names.md) | Sorts named imports within import statements | ✅ | `error` |
-| [`separate-type-imports`](./rules/separate-type-imports.md) | Enforces separate `import type` declarations | ✅ | `error` |
+| [`sort-import-groups`](./rules/sort-import-groups.md) | Groups and sorts imports with CSS grouping | ✅ |
+| [`sort-import-names`](./rules/sort-import-names.md) | Sorts named imports within import statements | ✅ |
+| [`separate-type-imports`](./rules/separate-type-imports.md) | Enforces separate `import type` declarations | ✅ |
+| [`single-line-import`](./rules/single-line-import.md) | Enforces import statements on a single line | ✅ |
 
 ## Configuration Examples
 
-### Basic Setup (Modular - Recommended)
+### Basic Setup
 
 ```js
 // eslint.config.js
@@ -38,7 +41,8 @@ export default [
     rules: {
       'pretty-import/separate-type-imports': 'error',
       'pretty-import/sort-import-groups': 'error',
-      'pretty-import/sort-import-names': 'error'
+      'pretty-import/sort-import-names': 'error',
+      'pretty-import/single-line-import': 'error'
     }
   }
 ];
@@ -89,19 +93,24 @@ export default [
 
 ### Working with Prettier
 
-This plugin is fully compatible with Prettier. For optimal results, run ESLint
-after Prettier to ensure import organization doesn't conflict with code
-formatting:
+Prettier conflicts with `single-line-import`. Its formatter expands long imports
+to multiple lines, which this rule collapses back.
 
-```json
-{
-  "scripts": {
-    "format": "prettier --write .",
-    "lint": "eslint --fix .",
-    "format-and-lint": "prettier --write . && eslint --fix ."
-  }
-}
-```
+To use this plugin with Prettier, disable `single-line-import` or accept that
+ESLint wins on import formatting. `sort-import-groups`, `sort-import-names`, and
+`separate-type-imports` have no conflict with Prettier.
+
+### Working with Biome
+
+Biome conflicts with this plugin in two ways. Its formatter expands long imports
+to multiple lines, which `single-line-import` collapses back. Its
+`organizeImports` code assist conflicts with `sort-import-groups`,
+`sort-import-names`, and `separate-type-imports`. Both tools will try to reorder
+the same imports.
+
+To use this plugin with Biome, disable `organizeImports` in your Biome config.
+For `single-line-import`, disable the Biome formatter for imports or accept that
+ESLint wins.
 
 ### TypeScript
 
@@ -111,6 +120,8 @@ For TypeScript projects, ensure you're using the TypeScript ESLint parser:
 // eslint.config.js
 import prettyImport from '@kamiya4047/eslint-plugin-pretty-import';
 import tsParser from '@typescript-eslint/parser';
+// or
+import { parser } from 'typescript-eslint'; 
 
 export default [
   {
@@ -124,7 +135,8 @@ export default [
     rules: {
       'pretty-import/separate-type-imports': 'error',
       'pretty-import/sort-import-groups': 'error',
-      'pretty-import/sort-import-names': 'error'
+      'pretty-import/sort-import-names': 'error',
+      'pretty-import/single-line-import': 'error'
     }
   }
 ];

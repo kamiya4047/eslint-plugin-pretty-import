@@ -1,10 +1,9 @@
 import { defineConfig } from '@eslint/config-helpers';
 
-import js from '@eslint/js';
+import javascript from '@eslint/js';
 import plugin from 'eslint-plugin-eslint-plugin';
 import stylistic from '@stylistic/eslint-plugin';
-import ts from 'typescript-eslint';
-import tsParser from '@typescript-eslint/parser';
+import typescript from 'typescript-eslint';
 
 import prettyImport from './src/index';
 
@@ -21,16 +20,16 @@ export default defineConfig(
   {
     files: ['src/**/*.ts', 'test/**/*.ts', '*.config.ts'],
     languageOptions: {
-      parser: tsParser,
+      parser: typescript.parser,
       parserOptions: {
         projectService: true,
         tsconfigRootDir: import.meta.dirname,
       },
     },
   },
-  js.configs.recommended,
-  ts.configs.recommendedTypeChecked,
-  ts.configs.stylisticTypeChecked,
+  javascript.configs.recommended,
+  typescript.configs.recommendedTypeChecked,
+  typescript.configs.stylisticTypeChecked,
   plugin.configs.recommended,
   prettyImport.configs.error,
   stylistic.configs.customize({

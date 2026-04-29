@@ -203,6 +203,8 @@ documentation](https://typescript-eslint.io/getting-started/typed-linting).
 // eslint.config.js
 import prettyImport from '@kamiya4047/eslint-plugin-pretty-import';
 import tsParser from '@typescript-eslint/parser';
+// or
+import { parser } from 'typescript-eslint';
 
 export default [
   {

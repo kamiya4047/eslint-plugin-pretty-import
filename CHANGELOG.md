@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.7] - 2026-04-29
+
+### Added
+
+- Added `single-line-import` rule to enforce single line import statements.
+
 ## [0.1.6] - 2025-09-18
 
 ### Changed

@@ -3,6 +3,7 @@ import { sortImportNames } from './rules/sort-import-names';
 
 import pkg from '../package.json';
 import separateTypeImports from './rules/separate-type-imports';
+import singleLineImport from './rules/single-line-import';
 
 import type { Linter } from 'eslint';
 
@@ -16,6 +17,7 @@ const plugin = {
     'sort-import-groups': sortImportGroups,
     'sort-import-names': sortImportNames,
     'separate-type-imports': separateTypeImports,
+    'single-line-import': singleLineImport,
   },
 
   configs: {} as Record<'warn' | 'error', Linter.Config>,
@@ -35,6 +37,7 @@ Object.assign(plugin.configs, {
         builtinModulePrefixes: ['node:', 'bun:', 'deno:'],
       }],
       'pretty-import/sort-import-names': 'warn',
+      'pretty-import/single-line-import': 'warn',
     },
   },
   error: {
@@ -52,6 +55,7 @@ Object.assign(plugin.configs, {
       'pretty-import/sort-import-names': ['error', {
         caseInsensitive: false,
       }],
+      'pretty-import/single-line-import': 'error',
     },
   },
 } as Record<'warn' | 'error', Linter.Config>);

@@ -100,6 +100,7 @@ export default [
 | [`sort-import-groups`] | Groups and sorts imports with CSS grouping | ✅ |
 | [`sort-import-names`] | Sorts named imports within import statements | ✅ |
 | [`separate-type-imports`] | Enforces separate `import type` declarations | ✅ |
+| [`single-line-import`] | Enforces import statements on a single line | ✅ |
 
 ## Example
 
@@ -345,3 +346,4 @@ If you find this plugin useful, consider supporting its development:
 [`sort-import-groups`]: https://github.com/kamiya4047/eslint-plugin-pretty-import/blob/main/docs/rules/sort-import-groups.md
 [`sort-import-names`]: https://github.com/kamiya4047/eslint-plugin-pretty-import/blob/main/docs/rules/sort-import-names.md
 [`separate-type-imports`]: https://github.com/kamiya4047/eslint-plugin-pretty-import/blob/main/docs/rules/separate-type-imports.md
+[`single-line-import`]: https://github.com/kamiya4047/eslint-plugin-pretty-import/blob/main/docs/rules/single-line-import.md

@@ -1,8 +1,7 @@
-import { test } from 'bun:test';
+import { describe } from 'bun:test';
 
 import { RuleTester } from 'eslint';
-
-import parser from '@typescript-eslint/parser';
+import { parser } from 'typescript-eslint';
 
 import { sortImportGroups } from '@/rules/sort-import-groups';
 
@@ -16,7 +15,7 @@ const ruleTester = new RuleTester({
   },
 });
 
-test('sort-import-groups rule', () => {
+describe('sort-import-groups rule', () => {
   ruleTester.run('sort-import-groups', sortImportGroups, {
     valid: [
       // Single import (no grouping needed)
@@ -107,7 +106,7 @@ import './styles.css';
   });
 });
 
-test('sort-import-groups rule with blank line validation', () => {
+describe('sort-import-groups rule with blank line validation', () => {
   const ruleTesterBlankLines = new RuleTester({
     languageOptions: {
       parser,

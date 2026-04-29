@@ -98,9 +98,9 @@ We use Bun's built-in test runner. Rule tests should follow this pattern:
 
 ```typescript
 import { RuleTester } from "@typescript-eslint/utils/testing";
-import rule from "@/rules/my-rule";
+import { parser } from 'typescript-eslint';
 
-import parser from '@typescript-eslint/parser';
+import rule from "@/rules/my-rule";
 
 const ruleTester = new RuleTester({
   languageOptions: {

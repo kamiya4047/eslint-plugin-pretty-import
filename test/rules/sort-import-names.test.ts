@@ -1,8 +1,7 @@
-import { test } from 'bun:test';
+import { describe } from 'bun:test';
 
 import { RuleTester } from 'eslint';
-
-import parser from '@typescript-eslint/parser';
+import { parser } from 'typescript-eslint';
 
 import { sortImportNames } from '@/rules/sort-import-names';
 
@@ -16,7 +15,7 @@ const ruleTester = new RuleTester({
   },
 });
 
-test('sort-import-names rule', () => {
+describe('sort-import-names rule', () => {
   ruleTester.run('sort-import-names', sortImportNames, {
     valid: [
       // Already sorted named imports
@@ -123,7 +122,7 @@ test('sort-import-names rule', () => {
   });
 });
 
-test('sort-import-names rule with case-insensitive option', () => {
+describe('sort-import-names rule with case-insensitive option', () => {
   const ruleTesterCaseInsensitive = new RuleTester({
     languageOptions: {
       parser,

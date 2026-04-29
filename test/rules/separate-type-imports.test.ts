@@ -1,8 +1,7 @@
-import { test } from 'bun:test';
+import { describe } from 'bun:test';
 
 import { RuleTester } from 'eslint';
-
-import parser from '@typescript-eslint/parser';
+import { parser } from 'typescript-eslint';
 
 import rule from '@/rules/separate-type-imports';
 
@@ -16,7 +15,7 @@ const ruleTester = new RuleTester({
   },
 });
 
-test('separate-type-imports rule', () => {
+describe('separate-type-imports rule', () => {
   ruleTester.run('separate-type-imports', rule, {
     valid: [
       // Already separated type imports

@@ -1,4 +1,4 @@
-import { expect, test } from 'bun:test';
+import { describe, expect } from 'bun:test';
 
 import { analyzeImportType, createSortKey, formatImportStatement, getImportGroupPriority, getModuleType, sortImportSpecifiers } from '../src/utils';
 import { ImportType, ModuleType } from '../src/types';
@@ -7,14 +7,14 @@ import type { ImportDeclaration, ImportDefaultSpecifier, ImportNamespaceSpecifie
 
 import type { ImportInfo, ImportSpecifier } from '../src/types';
 
-test('createSortKey', () => {
+describe('createSortKey', () => {
   expect(createSortKey('$special')).toBe('0$2s2p2e2c2i2a2l');
   expect(createSortKey('Capital')).toBe('1c2a2p2i2t2a2l');
   expect(createSortKey('lowercase')).toBe('2l2o2w2e2r2c2a2s2e');
   expect(createSortKey('MixedCase')).toBe('1m2i2x2e2d1c2a2s2e');
 });
 
-test('getModuleType', () => {
+describe('getModuleType', () => {
   const options = {
     builtinModulePrefixes: ['node:', 'bun:'],
     localPatterns: ['@/', '~/'],
@@ -30,7 +30,7 @@ test('getModuleType', () => {
   expect(getModuleType('lodash', options)).toBe(ModuleType.External);
 });
 
-test('analyzeImportType', () => {
+describe('analyzeImportType', () => {
   // Side effect import
   const sideEffectNode: ImportDeclaration = {
     type: 'ImportDeclaration',
@@ -80,7 +80,7 @@ test('analyzeImportType', () => {
   expect(analyzeImportType(mixedNode)).toBe(ImportType.Named);
 });
 
-test('getImportGroupPriority', () => {
+describe('getImportGroupPriority', () => {
   // Built-in module named import
   const builtinNamedImport: ImportInfo = {
     node: {
@@ -154,7 +154,7 @@ test('getImportGroupPriority', () => {
   expect(getImportGroupPriority(sideEffectImport)).toBe(1000);
 });
 
-test('sortImportSpecifiers', () => {
+describe('sortImportSpecifiers', () => {
   const specifiers: ImportSpecifier[] = [
     { name: 'z', sortKey: createSortKey('z'), isType: false },
     { name: '$', sortKey: createSortKey('$'), isType: false },
@@ -166,7 +166,7 @@ test('sortImportSpecifiers', () => {
   expect(sorted.map((s) => s.name)).toEqual(['$', 'B', 'a', 'z']);
 });
 
-test('formatImportStatement', () => {
+describe('formatImportStatement', () => {
   // Side effect import
   const sideEffectImport: ImportInfo = {
     node: {
